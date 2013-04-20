@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiNUKIjNHDqF6Z4ACY-YtTwoaPgH8PHkY&sensor=true">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(40.4975, -74.4889),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+	var infoWindow = new google.maps.InfoWindow;
+	
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+
+	var onMarkerClick = function() 
+      {
+	var marker = this;
+	var latLng = marker.getPosition();
+	infoWindow.setContent('<h3>Marker position is: </h3>' + latLng.lat() + ', ' + latLng.lng());
+	
+	infoWindow.open(map, marker);
+      };
+	google.maps.event.addListener(map, 'click', function(){
+        infoWindow.close();
+        });
+
+	//Marker for Somerset NJ
+        var marker1 = new google.maps.Marker({ 
+        map: map, 
+        position: new google.maps.LatLng(40.4975, -74.4889),
+        });
+	//Marker for Ewing NJ
+        var marker2 = new google.maps.Marker({
+        map: map, 
+        position: new google.maps.LatLng(40.26,-74.7889)
+        });
+	//Marker for Newark NJ
+        var marker3 = new google.maps.Marker({ 
+        map:map, 
+        position: new google.maps.LatLng(40.7356, -74.1728)
+
+
+
+        });
+google.maps.event.addListener(marker1, 'click' , onMarkerClick);
+      google.maps.event.addListener(marker2, 'click' , onMarkerClick);
+      google.maps.event.addListener(marker3, 'click' , onMarkerClick); 
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"/>
+  </body>
+</html>
